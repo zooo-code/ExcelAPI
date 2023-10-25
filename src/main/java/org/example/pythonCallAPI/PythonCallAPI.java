@@ -3,17 +3,19 @@ package org.example.pythonCallAPI;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class PythonCallAPI {
 
-	public void call() throws IOException, InterruptedException {
+	public void call(String arg) throws IOException, InterruptedException {
 		System.out.println("pythonbuilder ");
-		String arg1;
+
 		ProcessBuilder builder;
 		BufferedReader br;
 
-		arg1 = "/Users/ptk/PycharmProjects/excel/validate_sku_rule_1023.py";
-		builder = new ProcessBuilder("python3",arg1);
+		//경로를 입력 받는 방식으로 생각해보는게 좋다.
+//		arg1 = "/Users/ptk/PycharmProjects/excel/validate_sku_rule_1023.py";
+		builder = new ProcessBuilder("python3",arg);
 
 		builder.redirectErrorStream(true);
 		Process process = builder.start();
@@ -22,7 +24,7 @@ public class PythonCallAPI {
 		int exit = process.waitFor();
 
 		//// 서브 프로세스가 출력하는 내용을 받기 위해
-		br = new BufferedReader(new InputStreamReader(process.getInputStream(),"UTF-8"));
+		br = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
 		String line;
 
 		while ((line = br.readLine()) != null) {
